@@ -23,6 +23,8 @@ namespace EmployeePayrollService
             employeeModel.StartDate = Convert.ToDateTime("2020-10-13");
 
             employeeRepo.addEmployee(employeeModel);
+
+
             employeeRepo.getAllEmployee();
         }
     }
