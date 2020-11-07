@@ -26,6 +26,7 @@ namespace EmployeePayrollService
 
             Console.WriteLine("1. Get All Employees");
             Console.WriteLine("2. Get employees in a date range");
+            Console.WriteLine("3. Get Sum, Avg, Min, Max, Count by gender");
             int choice = Convert.ToInt32(Console.ReadLine());
             employeeRepo.getAllEmployee(choice);
         }

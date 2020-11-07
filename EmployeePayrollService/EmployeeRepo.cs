@@ -35,7 +35,16 @@ namespace EmployeePayrollService
                                     basic_pay,deductions,taxable_pay,tax,net_pay,start_Date 
                                     FROM employee_payroll WHERE start_Date between CAST('2020-10-27' AS DATE) and GETDATE()";
                             break;
+
+                        case 3:
+                            query = @"SELECT SUM(net_pay), MAX(net_pay), MIN(net_pay), 
+                                    AVG(net_pay), COUNT(name), gender FROM employee_payroll GROUP BY gender";
+                            break;
+
+                        default:
+                            break;
                     }
+
 
 
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -44,7 +53,16 @@ namespace EmployeePayrollService
 
                     SqlDataReader dr = cmd.ExecuteReader();
 
-                    if (dr.HasRows)
+                    if (dr.HasRows && choice == 3)
+                    {
+                        while (dr.Read())
+                        {
+                            Console.WriteLine("Sum : {0}, Avg : {1}, Max : {2}, Min : {3}, Count : {4}, Gender : {5}", dr.GetDecimal(0), dr.GetDecimal(1), dr.GetDecimal(2), dr.GetDecimal(3), dr.GetInt32(4), Convert.ToChar(dr.GetString(5)));
+                            Console.WriteLine("\n");
+                        }
+
+                    }
+                    else if (dr.HasRows)
                     {
                         while (dr.Read())
                         {
