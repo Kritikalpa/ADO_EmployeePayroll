@@ -24,8 +24,10 @@ namespace EmployeePayrollService
 
             employeeRepo.addEmployee(employeeModel);
 
-
-            employeeRepo.getAllEmployee();
+            Console.WriteLine("1. Get All Employees");
+            Console.WriteLine("2. Get employees in a date range");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            employeeRepo.getAllEmployee(choice);
         }
     }
 }

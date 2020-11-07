@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -12,7 +13,7 @@ namespace EmployeePayrollService
     {
         public static string connectionString = "Data Source=(LocalDb)\\testServer;Initial Catalog=payroll_services;Integrated Security=True";
 
-        public void getAllEmployee()
+        public void getAllEmployee(int choice)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             try
@@ -20,9 +21,21 @@ namespace EmployeePayrollService
                 EmployeeModel employeeModel = new EmployeeModel();
                 using (connection)
                 {
-                    string query = @"SELECT id,name,phone_number,address,department,gender,
+                    string query = "";
+                    switch (choice)
+                    {
+                        case 1:
+                            query = @"SELECT id,name,phone_number,address,department,gender,
                                     basic_pay,deductions,taxable_pay,tax,net_pay,start_Date 
                                     FROM employee_payroll";
+                            break;
+
+                        case 2:
+                            query = @"SELECT id,name,phone_number,address,department,gender,
+                                    basic_pay,deductions,taxable_pay,tax,net_pay,start_Date 
+                                    FROM employee_payroll WHERE start_Date between CAST('2020-10-27' AS DATE) and GETDATE()";
+                            break;
+                    }
 
 
                     SqlCommand cmd = new SqlCommand(query, connection);
